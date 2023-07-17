@@ -6,12 +6,12 @@ const {
 
 /*developer listing.*/
 
-router.post('/', createDeveloper);
-router.get('/', readAllDeveloper );
-router.get('/:id', readIdDeveloper);
-router.put('/:id', updateDeveloper);
-router.delete('/:id', deleteDeveloper)
-
+router.post('/buatDeveloper', createDeveloper);
+router.get('/ambilSemuaDeveloper', readAllDeveloper);
+router.get('/ambilDataDeveloper/:id', readIdDeveloper);
+router.put('/editDeveloper/:id', updateDeveloper);
+router.delete('/hapusDeveloper/:id', deleteDeveloper)
+// router.delete('/hapusDeveloper/:id', deleteDeveloper)
 module.exports = router;
 
 
