@@ -4,6 +4,7 @@ const path = require('path');
 // const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const database = require ('./config/database');
+const multer = require ('multer')
 const router = require ('./routes/index');
 require('dotenv').config();
 // const indexRouter = require('./routes/index');
@@ -11,6 +12,7 @@ require('dotenv').config();
 const cors = require ('cors');
 const app = express();
 database();
+multer()
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
