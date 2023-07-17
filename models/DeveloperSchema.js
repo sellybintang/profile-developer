@@ -25,27 +25,27 @@ const developerShema = new mongoose.Schema({
    alamat:{
         jalan: {
             type: String,
-            required:true,
+            required:[true,"tolong masukkan durasi iklan"],
         },
         desa:{
             type: String,
-            required:true,
+            required:[true,"tolong masukkan durasi iklan"],
         },
         kecamatan:{
             type: String,
-            required:true,
+            required:[true,"tolong masukkan durasi iklan"],
         },
         kabupaten:{
             type: String,
-            required:true,
+            required:[true,"tolong masukkan durasi iklan"],
         },
         provinsi:{
             type: String,
-            required:true,
+            required:[true,"tolong masukkan durasi iklan"],
         },
         kode_pos:{
-            type: String,
-            required:true,
+            type: Number,
+            required:[true,"tolong masukkan durasi iklan"],
         },
     },
 

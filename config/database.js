@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require ('dotenv');
 dotenv.config();
-const {DB_MONGODB}=process.env;
+const {DB_MONGODB,}=process.env;
 
 const database = module.exports = () => {
     try {
