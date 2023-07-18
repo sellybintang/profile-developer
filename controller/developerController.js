@@ -2,11 +2,11 @@ const Developer=require('../models/DeveloperSchema');
 
 // CRUD for Developer
 // Create Data Developer
-const createDeveloper = async (req, res) =>{
+const buatDeveloper = async (req, res) =>{
     try {
-        const newDeveloper = await Developer.create(req.body);
+        const buatbaruDeveloper = await Developer.create(req.body);
         res.status (200).json({
-            message: 'data developer berhasil ditambahkan', newDeveloper
+            message: 'data developer berhasil ditambahkan', buatbaruDeveloper
         });
     }catch (error){
         return res.status(error.statusCode ||500).json({
@@ -16,11 +16,11 @@ const createDeveloper = async (req, res) =>{
 };
 
 // Read All Data Developer
-const readAllDeveloper = async (req, res) =>{
+const ambilSemuaDeveloper = async (req, res) =>{
     try {
-        const readsDeveloper = await Developer.find();
+        const bacaDeveloperIdAdmin = await Developer.find();
         res.status(200).json({
-            message: 'semua data developer', readsDeveloper
+            message: 'semua data developer', bacaDeveloperIdAdmin
         });
     }catch (error){
         return res.status(error.statusCode ||500).json({
@@ -29,14 +29,14 @@ const readAllDeveloper = async (req, res) =>{
     };
 };
 
-// Read Data By Id Developer
-const readIdDeveloper = async (req, res)=>{
+// Read Data ById Developer
+const ambilDeveloper = async (req, res)=>{
     try{
         const id = req.params.id;
         console.log(id)
-        const readsIdDeveloper = await Developer.findById(id);
+        const bacaIdDeveloper = await Developer.findById(id);
         res.status(200).json({
-            message:'data developer', readsIdDeveloper
+            message:'data developer', bacaIdDeveloper
         });
         
     }catch (error){
@@ -46,13 +46,59 @@ const readIdDeveloper = async (req, res)=>{
     };
 };
 
+// Read Data By Admin Developer
+const ambilDeveloperByAdmin = async (req, res) =>{
+    try {
+        const bacaSemuaDeveloper = await Developer.find();
+        res.status(200).json({
+            message: 'semua data developer', bacaSemuaDeveloper
+        });
+    }catch (error){
+        return res.status(error.statusCode ||500).json({
+            message: error.message,
+        });
+    };
+};
+
+
+// Read Data By Admin Developer
+const cariDeveloper = async (req, res) =>{
+    try {
+        const bacaSemuaDeveloper = await Developer.find();
+        res.status(200).json({
+            message: 'semua data developer', bacaSemuaDeveloper
+        });
+    }catch (error){
+        return res.status(error.statusCode ||500).json({
+            message: error.message,
+        });
+    };
+};
+
+
 // Update Data Developer
-const updateDeveloper = async (req, res)=>{
+const editDeveloper = async (req, res)=>{
     try{
         const id = req.params;
-        const updatedIdDeveloper = await Developer.findByIdAndUpdate(id._id);
+        const editIdDeveloper = await Developer.findByIdAndUpdate(id._id);
         res.status(200).json({
-            message:'data developer berhasil diubah', updatedIdDeveloper
+            message:'data developer berhasil diubah', editIdDeveloper
+        });
+    }catch (error){
+        return res.status(error.statusCode || 500).json({
+            message:error.message,
+        });
+    };
+};
+
+
+// Update Data Developer
+const tambahPropertiDeveloper = async (req, res)=>{
+    try{
+        const id = req.params;
+        const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(id._id);
+        res.status(200).json({
+            message:'data developer berhasil diubah', tambahkanPropertiDeveloper
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
@@ -62,12 +108,28 @@ const updateDeveloper = async (req, res)=>{
 };
 
 // Delete Data Developer
-const deleteDeveloper = async (req, res)=>{
+const hapusPropertiDeveloper = async (req, res)=>{
     try{
         const id = req.params
-        const deletedIdDeveloper = await Developer.findByIdAndDelete(id._id);
+        const hapuskanPropertiDeveloper = await Developer.findByIdAndDelete(id._id);
         res.status(200).json({
-            message:'data developer berhasil dihapus', deletedIdDeveloper
+            message:'data developer berhasil dihapus', hapuskanPropertiDeveloper
+        });
+    }catch (error){
+        return res.status(error.statusCode || 500).json({
+            message:error.message,
+        });
+    };
+};
+
+
+// Delete Data Developer
+const hapusDeveloper = async (req, res)=>{
+    try{
+        const id = req.params
+        const hapusIdDeveloper = await Developer.findByIdAndDelete(id._id);
+        res.status(200).json({
+            message:'data developer berhasil dihapus', hapusIdDeveloper
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
@@ -76,9 +138,14 @@ const deleteDeveloper = async (req, res)=>{
     };
 };
 module.exports={
-    createDeveloper,
-    readAllDeveloper,
-    readIdDeveloper,
-    updateDeveloper,
-    deleteDeveloper,
+    buatDeveloper,
+    ambilSemuaDeveloper,
+    ambilDeveloper,
+    // ambilDeveloperByAdmin,
+    // cariDeveloper,
+    editDeveloper,
+    // tambahPropertiDeveloper,
+    // hapusPropertiDeveloper,
+    hapusDeveloper,
 }
+

@@ -3,6 +3,6 @@ const router = express.Router();
 const developerRoutes=require('./developerRoutes');
 
 /* GET developer. */
-router.use('/api/developer', developerRoutes)
+router.use('/api', developerRoutes)
 
 module.exports = router
