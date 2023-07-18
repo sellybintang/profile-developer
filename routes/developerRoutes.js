@@ -11,7 +11,7 @@ const isAdmin = require('../middleware/isAdmin')
 router.post('/buatDeveloper', buatDeveloper);
 router.get('/ambilSemuaDeveloper', ambilSemuaDeveloper);
 router.get('/ambilDataDeveloper/:id', ambilDeveloper);
-// router.get('/ambilDeveloperByAdmin/:admin_id', isAdmin, ambilDeveloperByAdmin);
+router.get('/ambilDeveloperByAdmin/:admin_id', ambilDeveloperByAdmin);
 // router.get('/cariDeveloper/:id', cariDeveloper);
 router.put('/editDeveloper/:id', editDeveloper);
 // router.put('/tambahPropertiDeveloper/:id', tambahPropertiDeveloper);

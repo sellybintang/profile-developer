@@ -21,6 +21,9 @@ const developerShema = new mongoose.Schema({
         type: String,
         required:true,
    },
+   properties:{
+        type: Array,
+   },
    alamat:{
         jalan: {
             type: String,
