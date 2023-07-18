@@ -12,7 +12,6 @@ const developerShema = new mongoose.Schema({
    },
    logo: {
         type: String,
-        required:true,
    },
    boss_id:{
         type: String,
@@ -48,7 +47,20 @@ const developerShema = new mongoose.Schema({
             required:[true,"tolong masukkan durasi iklan"],
         },
     },
-
+    role:{
+        type: String,
+        required: true
+    },
+    createdAt:{
+        type: Date,
+        immutable: true,
+        default:()=> Date.now(),
+    },
+    updateAt:{
+        type: Date,
+        immutable: true,
+        default:()=> Date.now(),
+    },
 });
 
 module.exports=mongoose.model("Developer", developerShema);
