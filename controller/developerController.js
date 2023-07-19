@@ -1,5 +1,4 @@
 const Developer=require('../models/DeveloperSchema');
-const isAdmin = require('../middleware/isAdmin');
 
 // CRUD for Developer
 // Create Data Developer
@@ -50,22 +49,12 @@ const ambilDeveloper = async (req, res)=>{
 // Read Data ByAdmin Developer
 const ambilDeveloperByAdmin = async (req, res) =>{
     try {
-        const admin_id = req.params.id;
-        const id = async (req, res)=>{
-        if(req.body.role==1){
-            next()
-        }else{
-            res.status(401).json({
-                status:"failed",
-                message:"tidak ada data Admin Developer"
-            })
-        }
-    }
-        const bacaSemuaDeveloper = await Developer.findById(admin_id,{id}.id);
+        const admin_id = req.params.admin_id;
+        const bacaSemuaDeveloper = await Developer.find({admin_id:admin_id})
         res.status(200).json({
             message: 'semua data developer', bacaSemuaDeveloper
         });
-        console.log(bacaDeveloperIdAdmin)
+
     }catch (error){
         return res.status(error.statusCode ||500).json({
             message: error.message,
@@ -77,11 +66,10 @@ const ambilDeveloperByAdmin = async (req, res) =>{
 // Search Data Properti Developer
 const cariDeveloper = async (req, res) =>{
     try {
-        const cariPropertiDeveloper={
-            properties
-        }= req.body
-        const id = req.params.id
-        const bacaSemuaDeveloper = await Developer.findById((id._id),cariPropertiDeveloper);
+        // const cariPropertiDeveloper = req.body.properties
+        const { name,properties } = req.body;
+
+        const bacaSemuaDeveloper = await Developer.find({properties:properties, name:name});
         res.status(200).json({
             message: 'semua data developer', bacaSemuaDeveloper
         });
@@ -114,12 +102,13 @@ const tambahPropertiDeveloper = async (req, res)=>{
     const {
         properties
     }= req.body
+    console.log(properties)
     try{
-        const id = req.params;
-        const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(id.properties._id);
+        const id = req.params.id;
+        const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(req.params.id,{properties:properties},{new:true});
 
         res.status(200).json({
-            message:'data developer berhasil diubah', tambahkanPropertiDeveloper
+            message:'data developer berhasil diubah',tambahkanPropertiDeveloper
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
@@ -130,12 +119,12 @@ const tambahPropertiDeveloper = async (req, res)=>{
 
 // Delete Data properti Developer
 const hapusPropertiDeveloper = async (req, res)=>{
+    const {
+        properties
+    }= req.body
+    console.log(properties)
     try{
-        const id = req.params
-        const pp={
-            properties
-        }=req.body
-        const hapuskanPropertiDeveloper = await Developer.findByIdAndDelete(id._id(pp));
+        const hapuskanPropertiDeveloper = await Developer.findByIdAndUpdate(req.params.id,{$pull: {properties:{ $in:properties }}}, {new:true});
         res.status(200).json({
             message:'data developer berhasil dihapus', hapuskanPropertiDeveloper
         });
@@ -161,6 +150,24 @@ const hapusDeveloper = async (req, res)=>{
         });
     };
 };
+
+
+// const uploadImage = async (req, res) => {
+//     // Jika file diunggah berhasil, req.file akan berisi informasi file yang diunggah
+//     try{
+//         if (req.file) {
+//             const filePath = req.file.path;
+//             res.status(200).send('Image uploaded successfully: ' + filePath);
+//           } else {
+//             res.status(400).send('No image was uploaded.');
+//           }
+//         }catch(error){
+//             return res.status(error.statusCode || 500).json({
+//                 message:error.message,
+//             });
+//         };
+// };
+
 module.exports={
     buatDeveloper,
     ambilSemuaDeveloper,
@@ -168,8 +175,9 @@ module.exports={
     ambilDeveloperByAdmin,
     cariDeveloper,
     editDeveloper,
-    // tambahPropertiDeveloper,
-    // hapusPropertiDeveloper,
+    tambahPropertiDeveloper,
+    hapusPropertiDeveloper,
     hapusDeveloper,
+    // uploadImages,
 }
 

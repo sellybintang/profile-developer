@@ -1,14 +1,16 @@
-// SDK initialization
+const multer = require('multer');
+const path = require('path');
 
-const ImageKit = require("imagekit");
-require('dotenv').config()
-const {
-    publicKey,
-    privateKey,
-    urlEndpoint,
-}=process.env
-const imagekit = new ImageKit({
-    publicKey : publicKey,
-    privateKey : privateKey,
-    urlEndpoint : urlEndpoint,
-});
+// Konfigurasi penyimpanan file dengan multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      // Tentukan direktori penyimpanan file
+      cb(null, '../images');
+    },
+    filename: function (req, file, cb) {
+      // Tentukan nama file yang disimpan (disesuaikan dengan ekstensi gambar)
+      cb(null, Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  const upload = multer({ storage: storage });
