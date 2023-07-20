@@ -5,7 +5,7 @@ const path = require('path');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       // Tentukan direktori penyimpanan file
-      cb(null, '../images');
+      cb(null, 'images/');
     },
     filename: function (req, file, cb) {
       // Tentukan nama file yang disimpan (disesuaikan dengan ekstensi gambar)
@@ -14,3 +14,4 @@ const storage = multer.diskStorage({
   });
   
   const upload = multer({ storage: storage });
+  module.exports=upload

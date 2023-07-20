@@ -4,7 +4,16 @@ const Developer=require('../models/DeveloperSchema');
 // Create Data Developer
 const buatDeveloper = async (req, res) =>{
     try {
-        const buatbaruDeveloper = await Developer.create(req.body);
+        const logo = req.file.path
+        console.log(logo)
+        const {
+        admin_boss_id,
+        admin_id,
+        boss_id,
+        name,
+        properties,
+        alamat}= req.body
+        const buatbaruDeveloper = await Developer.create({admin_boss_id:admin_boss_id,admin_id:admin_id, logo:logo, boss_id:boss_id, name:name, properties:properties, alamat:alamat});
         res.status (200).json({
             message: 'data developer berhasil ditambahkan', buatbaruDeveloper
         });
@@ -122,7 +131,7 @@ const hapusPropertiDeveloper = async (req, res)=>{
     const {
         properties
     }= req.body
-    console.log(properties)
+    // console.log(properties)
     try{
         const hapuskanPropertiDeveloper = await Developer.findByIdAndUpdate(req.params.id,{$pull: {properties:{ $in:properties }}}, {new:true});
         res.status(200).json({
@@ -151,23 +160,6 @@ const hapusDeveloper = async (req, res)=>{
     };
 };
 
-
-// const uploadImage = async (req, res) => {
-//     // Jika file diunggah berhasil, req.file akan berisi informasi file yang diunggah
-//     try{
-//         if (req.file) {
-//             const filePath = req.file.path;
-//             res.status(200).send('Image uploaded successfully: ' + filePath);
-//           } else {
-//             res.status(400).send('No image was uploaded.');
-//           }
-//         }catch(error){
-//             return res.status(error.statusCode || 500).json({
-//                 message:error.message,
-//             });
-//         };
-// };
-
 module.exports={
     buatDeveloper,
     ambilSemuaDeveloper,
@@ -178,6 +170,5 @@ module.exports={
     tambahPropertiDeveloper,
     hapusPropertiDeveloper,
     hapusDeveloper,
-    // uploadImages,
 }
 
