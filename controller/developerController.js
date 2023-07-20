@@ -5,7 +5,6 @@ const Developer=require('../models/DeveloperSchema');
 const buatDeveloper = async (req, res) =>{
     try {
         const logo = req.file.path
-        console.log(logo)
         let {
         admin_boss_id,
         admin_id,
@@ -13,9 +12,10 @@ const buatDeveloper = async (req, res) =>{
         name,
         properties,
         alamat}= req.body
-        // dikonversi kebentuk parse agar bisa didokumentasi pada form-data
+        // dikonversi kebentuk parse agar bisa didokumentasi pada form-data(komen apabila menggunakan raw)
         properties=JSON.parse(properties);
         alamat=JSON.parse(alamat)
+
         const buatbaruDeveloper = await Developer.create({admin_boss_id:admin_boss_id,admin_id:admin_id, logo:logo, boss_id:boss_id, name:name, properties:properties, alamat:alamat});
         res.status (200).json({
             message: 'data developer berhasil ditambahkan', buatbaruDeveloper
@@ -45,7 +45,6 @@ const ambilSemuaDeveloper = async (req, res) =>{
 const ambilDeveloper = async (req, res)=>{
     try{
         const id = req.params.id;
-        console.log(id)
         const bacaIdDeveloper = await Developer.findById(id);
         res.status(200).json({
             message:'data developer', bacaIdDeveloper
@@ -78,9 +77,7 @@ const ambilDeveloperByAdmin = async (req, res) =>{
 // Search Data Properti Developer
 const cariDeveloper = async (req, res) =>{
     try {
-        // const cariPropertiDeveloper = req.body.properties
         const { name,properties } = req.body;
-
         const bacaSemuaDeveloper = await Developer.find({properties:properties, name:name});
         res.status(200).json({
             message: 'semua data developer', bacaSemuaDeveloper
@@ -122,7 +119,6 @@ const tambahPropertiDeveloper = async (req, res)=>{
     try{
         const id = req.params;
         const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(id.id,{properties:properties},{new:true, runValidators: true,});
-        console.log(tambahkanPropertiDeveloper)
         res.status(200).json({
             message:'data developer berhasil diubah',tambahkanPropertiDeveloper
         });
