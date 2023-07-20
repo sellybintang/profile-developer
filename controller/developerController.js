@@ -6,13 +6,16 @@ const buatDeveloper = async (req, res) =>{
     try {
         const logo = req.file.path
         console.log(logo)
-        const {
+        let {
         admin_boss_id,
         admin_id,
         boss_id,
         name,
         properties,
         alamat}= req.body
+        // dikonversi kebentuk parse agar bisa didokumentasi pada form-data
+        properties=JSON.parse(properties);
+        alamat=JSON.parse(alamat)
         const buatbaruDeveloper = await Developer.create({admin_boss_id:admin_boss_id,admin_id:admin_id, logo:logo, boss_id:boss_id, name:name, properties:properties, alamat:alamat});
         res.status (200).json({
             message: 'data developer berhasil ditambahkan', buatbaruDeveloper
@@ -94,7 +97,12 @@ const cariDeveloper = async (req, res) =>{
 const editDeveloper = async (req, res)=>{
     try{
         const id = req.params;
-        const editIdDeveloper = await Developer.findByIdAndUpdate(id._id);
+        const edit = req.body;
+        const editIdDeveloper = await Developer.findByIdAndUpdate(id.id, edit, {
+            new: true,
+            runValidators: true,
+        });
+        console.log(editIdDeveloper)
         res.status(200).json({
             message:'data developer berhasil diubah', editIdDeveloper
         });
@@ -111,11 +119,10 @@ const tambahPropertiDeveloper = async (req, res)=>{
     const {
         properties
     }= req.body
-    console.log(properties)
     try{
-        const id = req.params.id;
-        const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(req.params.id,{properties:properties},{new:true});
-
+        const id = req.params;
+        const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(id.id,{properties:properties},{new:true, runValidators: true,});
+        console.log(tambahkanPropertiDeveloper)
         res.status(200).json({
             message:'data developer berhasil diubah',tambahkanPropertiDeveloper
         });

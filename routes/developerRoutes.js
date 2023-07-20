@@ -6,17 +6,16 @@ const {
 const upload=require('../middleware/multer')
 
 
-
 /*developer listing.*/
 router.post('/buatDeveloper', upload.single('logo'), buatDeveloper);
 router.get('/ambilSemuaDeveloper', ambilSemuaDeveloper);
 router.get('/ambilDataDeveloper/:id', ambilDeveloper);
 router.get('/ambilDeveloperByAdmin/:admin_id', ambilDeveloperByAdmin);
 router.get('/cariDeveloper', cariDeveloper);
-router.put('/editDeveloper/:id', editDeveloper);
-router.put('/tambahPropertiDeveloper/:id', tambahPropertiDeveloper);
+router.patch('/editDeveloper/:id', editDeveloper);
+router.patch('/tambahPropertiDeveloper/:id', tambahPropertiDeveloper);
 router.delete('/hapusDeveloper/:id', hapusDeveloper);
-router.put('/hapusPropertiDeveloper/:id', hapusPropertiDeveloper);
+router.patch('/hapusPropertiDeveloper/:id', hapusPropertiDeveloper);
 
 module.exports = router;
 
