@@ -7,15 +7,14 @@ apiEndpoints:
   api:
     host: localhost
     paths: '/ip'
-  ambilProvinsi:
-    host: 'localhost'
-    paths: '/serviceA'
+  provinsi:
+    host: localhost
+    paths: '/ambilProvinsi'
 serviceEndpoints:
   httpbin:
     url: 'https://httpbin.org'
-  ManajemenWilayah:
+  provinsi:
     url: 'http://localhost:3001'
-
 policies:
   - basic-auth
   - cors
@@ -26,21 +25,21 @@ policies:
   - proxy
   - rate-limit
 pipelines:
-  # default:
-  #   apiEndpoints:
-  #     - api
-  #   policies:
+  default:
+    apiEndpoints:
+      - api
+    policies:
     # Uncomment `key-auth:` when instructed to in the Getting Started guide.
     # - key-auth:
-      # - proxy:
-      #     - action:
-      #         serviceEndpoint: httpbin 
-      #         changeOrigin: true
-  pipelineManajemenWilayah:
-    provinsi:
-      - ambilProvinsi
+      - proxy:
+          - action:
+              serviceEndpoint: httpbin 
+              changeOrigin: true
+  provinsi:
+    apiEndpoints:
+      - provinsi
     policies:
       - proxy:
           - action:
-              serviceEndpoint: ManajemenWilayah
+              serviceEndpoint: provinsi
               changeOrigin: true
