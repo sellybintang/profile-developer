@@ -3,18 +3,49 @@ http:
 admin:
   port: 9876
   host: localhost
+
+# Service Endpoints
+serviceEndpoints:
+  httpbin:
+    url: 'https://httpbin.org'
+# Manajemen Wilayah
+  provinsi:
+    url: 'http://localhost:3001'
+# Developer
+  Developer: 
+    url: 'http://localhost:3002'
+
+
+# API ENDPOINT
 apiEndpoints:
+# Manajemen Wilayah
   api:
     host: localhost
     paths: '/ip'
   provinsi:
     host: localhost
     paths: '/ambilProvinsi'
-serviceEndpoints:
-  httpbin:
-    url: 'https://httpbin.org'
-  provinsi:
-    url: 'http://localhost:3001'
+# Developer
+  # buat developer
+  buatDeveloper:
+    paths: '/api/buatDeveloper'
+  ambilSemuaDeveloper:
+    paths: '/api/ambilSemuaDeveloper'
+  ambilDataDeveloper:
+    paths: '/api/ambilDataDeveloper/:id'
+  ambilDeveloperByAdmin:
+    paths: '/api/ambilDeveloperByAdmin/:admin_id'
+  cariDeveloper:
+    paths: '/api/cariDeveloper'
+  editDeveloper:
+    paths: '/api/editDeveloper/:id'
+  tambahPropertiDeveloper:
+    paths: '/api/tambahPropertiDeveloper/:id'
+  hapusDeveloper:
+    paths: '/api/hapusDeveloper/:id'
+  hapusPropertiDeveloper:
+    paths: '/api/hapusPropertiDeveloper/:id'
+
 policies:
   - basic-auth
   - cors
@@ -24,6 +55,7 @@ policies:
   - oauth2
   - proxy
   - rate-limit
+
 pipelines:
   default:
     apiEndpoints:
@@ -35,6 +67,7 @@ pipelines:
           - action:
               serviceEndpoint: httpbin 
               changeOrigin: true
+            
   provinsi:
     apiEndpoints:
       - provinsi
@@ -43,3 +76,119 @@ pipelines:
           - action:
               serviceEndpoint: provinsi
               changeOrigin: true
+
+
+  # Developer
+  buatDeveloper:
+    apiEndpoints:
+      - buatDeveloper
+    policies:
+      - cors:
+        - action: 
+            action:
+              origin: '*'
+              method: POST
+      - proxy:
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+
+  ambilSemuaDeveloper:
+    apiEndpoints:
+      - ambilSemuaDeveloper
+    policies: 
+      - proxy: 
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+  
+  ambilDataDeveloper:
+    apiEndpoints:
+      - ambilDataDeveloper
+    policies:
+      - cors:
+        - action: 
+            origin: '*'
+            method: GET
+      - proxy: 
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+
+  ambilDeveloperByAdmin:
+    apiEndpoints: 
+      - ambilDeveloperByAdmin
+    policies:
+      - cors:
+        - action:
+          origin: '*'
+          method: GET
+      - proxy:
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+
+  cariDeveloper:
+    apiEndpoints:
+      - cariDeveloper
+    policies:
+      - cors: 
+        action:
+          origin: '*'
+          method: GET
+      - proxy:
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+   
+  editDeveloper:
+    apiEndpoints:
+      - editDeveloper
+    policies:
+      - cors:
+        - action: 
+            origin: '*'
+            method: PATCH
+      - proxy:
+        - action: 
+            serviceEndpoint: Developer
+            changeOrigin: true   
+
+  tambahPropertiDeveloper:
+    apiEndpoints:
+      - tambahPropertiDeveloper
+    policies:
+      - cors: 
+        - action:
+            origin: '*'
+            method: PATCH
+      - proxy: 
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+    
+  hapusDeveloper:
+    apiEndpoints:
+      - hapusDeveloper
+    policies:
+      - cors: 
+        - action:
+            origin: '*'
+            method: DELETE
+      - proxy:
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true
+    
+  hapusPropertiDeveloper:
+    apiEndpoints:
+      - hapusPropertiDeveloper
+    policies:
+      - cors:
+        - action:
+            origin: '*'
+            method: DELETE
+      - proxy:
+        - action:
+            serviceEndpoint: Developer
+            changeOrigin: true  
