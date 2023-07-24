@@ -9,7 +9,7 @@ serviceEndpoints:
   httpbin:
     url: 'https://httpbin.org'
 # Manajemen Wilayah
-  provinsi:
+  manajemenWilayah:
     url: 'http://localhost:3001'
 # Developer
   Developer: 
@@ -18,13 +18,62 @@ serviceEndpoints:
 
 # API ENDPOINT
 apiEndpoints:
-# Manajemen Wilayah
   api:
     host: localhost
     paths: '/ip'
-  provinsi:
-    host: localhost
-    paths: '/ambilProvinsi'
+# Manajemen Wilayah
+  # GET ENDPOINTS
+  ambilProvinsi:
+    paths: '/manajemenWilayah/ambilProvinsi'
+  ambilWilayah:
+    paths: '/manajemenWilayah/ambilWilayah'
+  ambilKota:
+    paths: '/manajemenWilayah/ambilKota'
+  ambilDaftarManajer:
+    paths: '/manajemenWilayah/ambilDaftarManajer'
+  ambilManajerDariId:
+    paths: '/manajemenWilayah/ambilManajer/:id_manajer'
+  ambilManajerDariWilayah:
+    paths: '/manajemenWilayah/ambilManajerDariWilayah/:id_wilayah'
+  ambilManajerDariKota:
+    paths: '/manajemenWilayah/ambilManajerDariKota/:id_kota'
+  ambilKotaDariId:
+    paths: '/manajemenWilayah/ambilKotaDariId/:id_kota'
+  ambilWilayahDariProvinsi:
+    paths: '/manajemenWilayah/ambilWilayahDariProvinsi/:id_provinsi'
+  ambilKotaDariWilayah:
+    paths: '/manajemenWilayah/ambilKotaDariWilayah/:id_wilayah'
+
+  # POST ENDPOINTS
+  tambahProvinsi:
+    paths: '/manajemenWilayah/tambahProvinsi'
+  tambahWilayah:
+    paths: '/manajemenWilayah/tambahWilayah'
+  tambahKota:
+    paths: '/manajemenWilayah/tambahKota'
+  tambahManajer:
+    paths: '/manajemenWilayah/tambahManajer'
+
+  # PATCH ENDPOINTS
+  ubahProvinsi:
+    paths: '/manajemenWilayah/ubahProvinsi/:id_provinsi'
+  ubahWilayah:
+    paths: '/manajemenWilayah/ubahWilayah/:id_wilayah'
+  ubahKota:
+    paths: '/manajemenWilayah/ubahKota/:id_kota'
+  ubahManajer:
+    paths: '/manajemenWilayah/ubahManajer/:id_manajer'
+
+  # DELETE ENDPOINTS
+  hapusProvinsi:
+    paths: '/manajemenWilayah/hapusProvinsi/:id_provinsi'
+  hapusWilayah:
+    paths: '/manajemenWilayah/hapusWilayah/:id_wilayah'
+  hapusKota:
+    paths: '/manajemenWilayah/hapusKota/:id_kota'
+  hapusManajer:
+    paths: '/manajemenWilayah/hapusManajer/:id_manajer'
+
 # Developer
   # buat developer
   buatDeveloper:
@@ -67,16 +116,268 @@ pipelines:
           - action:
               serviceEndpoint: httpbin 
               changeOrigin: true
-            
-  provinsi:
+  
+  # Manajemen Wilayah     
+  # GET PIPELINES
+  ambilProvinsi:
     apiEndpoints:
-      - provinsi
+      - ambilProvinsi
     policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
       - proxy:
           - action:
-              serviceEndpoint: provinsi
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilWilayah:
+    apiEndpoints:
+      - ambilWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilKota:
+    apiEndpoints:
+      - ambilKota
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilDaftarManajer:
+    apiEndpoints:
+      - ambilDaftarManajer
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilWilayahDariProvinsi:
+    apiEndpoints:
+      - ambilWilayahDariProvinsi
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilKotaDariWilayah:
+    apiEndpoints:
+      - ambilKotaDariWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilKotaDariId:
+    apiEndpoints:
+      - ambilKotaDariId
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilManajerDariId:
+    apiEndpoints:
+      - ambilManajerDariId
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilManajerDariWilayah:
+    apiEndpoints:
+      - ambilManajerDariWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ambilManajerDariKota:
+    apiEndpoints:
+      - ambilManajerDariKota
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+    
+
+  # POST PIPELINES
+  tambahProvinsi:
+    apiEndpoints:
+      - tambahProvinsi
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  tambahWilayah:
+    apiEndpoints:
+      - tambahWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  tambahKota:
+    apiEndpoints:
+      - tambahKota
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
               changeOrigin: true
 
+  # PATCH PIPELINES
+  ubahProvinsi:
+    apiEndpoints:
+      - ubahProvinsi
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ubahWilayah:
+    apiEndpoints:
+      - ubahWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ubahKota:
+    apiEndpoints:
+      - ubahKota
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  ubahManajer:
+    apiEndpoints:
+      - ubahManajer
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+
+  # DELETE PIPELINES
+  hapusProvinsi:
+    apiEndpoints:
+      - hapusProvinsi
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  hapusWilayah:
+    apiEndpoints:
+      - hapusWilayah
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  hapusKota:
+    apiEndpoints:
+      - hapusKota
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
+  hapusManajer:
+    apiEndpoints:
+      - hapusManajer
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
 
   # Developer
   buatDeveloper:
@@ -121,8 +422,8 @@ pipelines:
     policies:
       - cors:
         - action:
-          origin: '*'
-          method: GET
+            origin: '*'
+            method: GET
       - proxy:
         - action:
             serviceEndpoint: Developer
@@ -133,9 +434,9 @@ pipelines:
       - cariDeveloper
     policies:
       - cors: 
-        action:
-          origin: '*'
-          method: GET
+        - action:
+            origin: '*'
+            method: GET
       - proxy:
         - action:
             serviceEndpoint: Developer
