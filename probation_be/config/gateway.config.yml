@@ -10,10 +10,10 @@ serviceEndpoints:
     url: 'https://httpbin.org'
 # Manajemen Wilayah
   manajemenWilayah:
-    url: 'http://localhost:3001'
+    url: 'https://af7e-112-78-133-82.ngrok-free.app'
 # Developer
   Developer: 
-    url: 'http://localhost:3002'
+    url: 'https://55c8-112-78-133-82.ngrok-free.app'
 
 
 # API ENDPOINT
