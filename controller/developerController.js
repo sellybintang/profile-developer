@@ -12,14 +12,17 @@ const buatDeveloper = async (req, res) =>{
         name,
         properties,
         alamat}= req.body
+
         // dikonversi kebentuk parse agar bisa didokumentasi pada form-data(komen apabila menggunakan raw)
         properties=JSON.parse(properties);
         alamat=JSON.parse(alamat)
 
         const buatbaruDeveloper = await Developer.create({admin_boss_id:admin_boss_id,admin_id:admin_id, logo:logo, boss_id:boss_id, name:name, properties:properties, alamat:alamat});
+        // console.log (buatbaruDeveloper)
         res.status (200).json({
             message: 'data developer berhasil ditambahkan', buatbaruDeveloper
         });
+        console.log (buatbaruDeveloper)
     }catch (error){
         return res.status(error.statusCode ||500).json({
             message: error.message,
@@ -99,7 +102,7 @@ const editDeveloper = async (req, res)=>{
             new: true,
             runValidators: true,
         });
-        console.log(editIdDeveloper)
+        // console.log(editIdDeveloper)
         res.status(200).json({
             message:'data developer berhasil diubah', editIdDeveloper
         });
@@ -113,7 +116,7 @@ const editDeveloper = async (req, res)=>{
 
 // Update Data Developer
 const tambahPropertiDeveloper = async (req, res)=>{
-    const {
+    let {
         properties
     }= req.body
     try{
