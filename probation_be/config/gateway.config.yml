@@ -278,6 +278,18 @@ pipelines:
           - action:
               serviceEndpoint: manajemenWilayah
               changeOrigin: true
+  tambahmManajer:
+    apiEndpoints:
+      - tambahManajer
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: manajemenWilayah
+              changeOrigin: true
 
   # PATCH PIPELINES
   ubahProvinsi:
