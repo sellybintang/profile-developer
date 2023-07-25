@@ -10,7 +10,7 @@ serviceEndpoints:
     url: 'https://httpbin.org'
 # Manajemen Wilayah
   manajemenWilayah:
-    url: 'https://af7e-112-78-133-82.ngrok-free.app'
+    url: 'https://5bb9-112-78-133-82.ngrok-free.app'
 # Developer
   Developer: 
     url: 'https://9329-112-78-133-82.ngrok-free.app'
