@@ -13,7 +13,7 @@ serviceEndpoints:
     url: 'https://af7e-112-78-133-82.ngrok-free.app'
 # Developer
   Developer: 
-    url: 'https://55c8-112-78-133-82.ngrok-free.app'
+    url: 'https://9329-112-78-133-82.ngrok-free.app'
 
 
 # API ENDPOINT
@@ -77,23 +77,23 @@ apiEndpoints:
 # Developer
   # buat developer
   buatDeveloper:
-    paths: '/api/buatDeveloper'
+    paths: '/developer/buatDeveloper'
   ambilSemuaDeveloper:
-    paths: '/api/ambilSemuaDeveloper'
+    paths: '/developer/ambilSemuaDeveloper'
   ambilDataDeveloper:
-    paths: '/api/ambilDataDeveloper/:id'
+    paths: '/developer/ambilDataDeveloper/:id'
   ambilDeveloperByAdmin:
-    paths: '/api/ambilDeveloperByAdmin/:admin_id'
+    paths: '/developer/ambilDeveloperByAdmin/:admin_id'
   cariDeveloper:
-    paths: '/api/cariDeveloper'
+    paths: '/developer/cariDeveloper'
   editDeveloper:
-    paths: '/api/editDeveloper/:id'
+    paths: '/developer/editDeveloper/:id'
   tambahPropertiDeveloper:
-    paths: '/api/tambahPropertiDeveloper/:id'
+    paths: '/developer/tambahPropertiDeveloper/:id'
   hapusDeveloper:
-    paths: '/api/hapusDeveloper/:id'
+    paths: '/developer/hapusDeveloper/:id'
   hapusPropertiDeveloper:
-    paths: '/api/hapusPropertiDeveloper/:id'
+    paths: '/developer/hapusPropertiDeveloper/:id'
 
 policies:
   - basic-auth
