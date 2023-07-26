@@ -9,12 +9,9 @@ const register = async(req, res)=>{
         const hashedPassword = await bcrypt.hash(password, salt);
         req.body.password=hashedPassword
         const registerUsers = await Users.create(req.body)
-        console.log(registerUsers)
         res.status(200).json({
             message: "User telah berhasil terdaftar", data: registerUsers
-            
         })
-        
     }catch{
         res.status(500).json({
             message:"User gagal mendaftar"
