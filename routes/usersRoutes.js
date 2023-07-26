@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {register} = require ('../controller/auth')
+const {register} = require ('../controller/authController')
 const {isAdmin, superAdmin, isUser} = require ('../middleware/authUsers')
 // const {authPassword} = require ('../middleware/authPassword')
 
