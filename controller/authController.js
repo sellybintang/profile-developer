@@ -1,6 +1,18 @@
-// const bcrypt = require('bcrypt')
 const Users = require('../models/usersSchema')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto-js')
+require('dotenv').config();
+
+const createToken = async(payload) => {
+    const data = JSON.stringify(payload)
+    return crypto.AES.encrypt(data, process.env.KEY).toString()
+}
+
+// const readToken = async(token) => {
+//     const bytes = crypto.AES.decrypt(token, process.env.KEY);
+//     const decryptedData = bytes.toString(crypto.enc.Utf8);
+//     return JSON.parse(decryptedData);
+// }
 
 const register = async(req, res)=>{
     try{
@@ -19,6 +31,69 @@ const register = async(req, res)=>{
     }
 }
 
+const login = async(req, res) => {
+    try{
+        if(!req.body.email || !req.body.password){
+            return res.status(400).json({
+                status: "Gagal",
+                message: "Terdapat form yang kosong."
+            })
+        }
+    
+        const email = req.body.email.toLowerCase()
+        const password = req.body.password
+    
+        const user = await Users.findOne({email: email})
+    
+        if(!user) {
+            return res.status(404).json({
+                status: "Gagal",
+                message: "Akun Tidak Ditemukan."
+            })
+        }
+    
+        const cekPassword = await bcrypt.compare(password, user.password)
+    
+        if(!cekPassword){
+            return res.status(401).json({
+                status: "Gagal",
+                message: "Password Salah."
+            })
+        }
+    
+        const token = await createToken({
+            user_id: user.id,
+            role_id: user.role
+        })
+    
+        res.status(200).json({
+            status: "Berhasil",
+            message: "Anda Berhasil Login.",
+            data: {
+                nama: user.name,
+                no_telp: user.no_telp,
+                alamat: user.alamat,
+                token: "Bearer " + token
+            }
+        })
+    }catch(err){
+        res.status(500).json({
+            status: "Error",
+            message: err.message
+        })
+    }
+}
+
+const whoami = async(req, res) => {
+    res.status(200).json({
+        status: "Berhasil",
+        message: "Data User Ditemukan.",
+        data: req.user
+    });
+}
+
 module.exports = {
     register,
+    login,
+    whoami
 }

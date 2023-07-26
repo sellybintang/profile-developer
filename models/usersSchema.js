@@ -62,6 +62,13 @@ const usersSchema = new Schema ({
     }
 })
 
+usersSchema.method("toJSON", function(){
+    const {__v, _id, ...object} = this.toObject()
+    object.id = _id
+
+    return object
+})
+
 const Users = mongoose.model('Users', usersSchema)
 
 module.exports=Users
