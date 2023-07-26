@@ -42,6 +42,10 @@ const usersSchema = new Schema ({
         provinsi:{
             type: String,
             required: true
+        },
+        kode_pos:{
+            type: String,
+            required: true
         }
     },
     role:{
