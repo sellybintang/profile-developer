@@ -25,7 +25,7 @@ const register = async(req, res)=>{
             message: "User telah berhasil terdaftar", data: registerUsers
         })
     }catch{
-        res.status(500).json({
+        res.status(401).json({
             message:"User gagal mendaftar"
         })
     }
