@@ -17,5 +17,3 @@ router.post('/buatPermission', authorize, buatPremission);
 router.get('/ambilPermission' , ambilPremission);
 router.patch('/ubahPermision' , ubahPermission);
 router.delete('/hapusPermission' , hapusPermission);
-
-module.exports = router;
