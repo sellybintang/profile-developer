@@ -14,6 +14,6 @@ router.get('/semuaAkunUser', authorize, ambilSemuaProfile);
 
 // Permissions
 router.post('/buatPermission', authorize, buatPremission);
-router.get('/ambilPermission' , ambilPremission);
-router.patch('/ubahPermision' , ubahPermission);
-router.delete('/hapusPermission' , hapusPermission);
+router.get('/ambilPermission' , authorize, ambilPremission);
+router.patch('/ubahPermision' , authorize, ubahPermission);
+router.delete('/hapusPermission' , authorize, hapusPermission);
