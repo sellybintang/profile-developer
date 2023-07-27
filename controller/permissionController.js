@@ -30,21 +30,36 @@ const ambilPremission = async (req, res) =>{
 
 const ubahPermission = async (req, res) =>{
     try {
-        const ubahPermissionBaru = await permission.req.body(id.id)
+        const ubahPermissionBaru = await permission.finByIdAndUpdate(req.body(id.id))
         res.status(200).json({
             message:'data berhasil diubah', ubahPermissionBaru
         })
     }catch{
         res.status(402).json({
-            message:'data gagal diubah'
+            message:'Maaf, data gagal diubah'
         })
     }
 }
 
-const hapusPermission = async ()
+const hapusPermission = async  (req, res) =>{
+    try{
+        const hapusPermissionBaru = await permission.finByIdAndDelete(req.body())
+        res.status(200).json({
+            message: 'Data berhasil dihapus', hapusPermissionBaru
+        })
+    }catch {
+        res.status(402).json({
+            message: 'Maaf, data gagal dihapus'
+        })
+    }
+}
+
+
+
 module.exports = {
     buatPremission,
     ambilPremission,
     ubahPermission,
+    hapusPermission,
 }
 

@@ -7,8 +7,10 @@ require ('dotenv').config()
 const cors = require('cors')
 const multer = require('multer')
 const router = require ('./routes/indexRoutes')
-const database = require('./config/database')
+const database = require('./config/database');
+const bodyParser = require('body-parser');
 const app = express();
+
 database()
 multer()
 // view engine setup
@@ -17,6 +19,7 @@ multer()
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.json())
 // app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

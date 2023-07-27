@@ -9,6 +9,14 @@ const permissionSchema = mongoose.Schema ({
     hak_akses: {
         type: String,
         required: true
+    },
+    createdAd:{
+        type: Date,
+        default: ()=> Date.now()
+    },
+    updatedAd:{
+        type: Date,
+        default:()=> Date.now()
     }
 })
 
