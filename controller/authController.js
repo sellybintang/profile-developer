@@ -90,10 +90,24 @@ const whoami = async(req, res) => {
         message: "Data User Ditemukan.",
         data: req.user
     });
+};
+
+const ambilSemuaProfile = async (req, res) =>{
+    try{
+        const ambilSemuaProfiles = await Users.find();
+        res.status(200).json({
+            message: 'Data Semua Users', ambilSemuaProfiles
+        })
+    }catch {
+        res.status(401).json({
+            message: 'Hanya bisa diakses oleh Super Admin dan Admin'
+        })
+    }
 }
 
 module.exports = {
     register,
     login,
-    whoami
+    whoami,
+    ambilSemuaProfile
 }
