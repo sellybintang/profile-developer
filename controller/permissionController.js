@@ -1,12 +1,14 @@
-const permission = require('../models/permissionSchema');
+const permission = require('../models/permissionSchema')
 
 // buat CRUD
 // Buat
 const buatPremission = async (req, res)=>{
     try{
-        const buatPremissionBaru = await permission.create(req.body())
+        console.log(req.body)
+        const buatPremissionBaru = await permission.create(req.body)
         res.status(200).json({
-            message: 'Data Berhasil dibuat', buatPremissionBaru
+            message: 'Data Berhasil dibuat', 
+            data: buatPremissionBaru
         })
     }catch{
         res.status(401).json({
@@ -14,6 +16,7 @@ const buatPremission = async (req, res)=>{
         })
     }
 };
+
 
 const ambilPremission = async (req, res) =>{
     try{

@@ -3,7 +3,7 @@ const router = express.Router();
 const usersRoutes = require ('./usersRoutes')
 
 /* GET home page. */
-router.use('/auth', usersRoutes)
+router.use('/userService', usersRoutes)
 
 
 module.exports = router;

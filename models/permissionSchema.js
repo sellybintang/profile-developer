@@ -7,7 +7,7 @@ const permissionSchema = mongoose.Schema ({
         required: true
     },
     hak_akses: {
-        type: String,
+        type: Array,
         required: true
     },
     createdAd:{
@@ -27,5 +27,5 @@ permissionSchema.method("toJSON", function(){
     return object
 })
 
-permission = mongoose.model('permission', permissionSchema)
+const permission = mongoose.model('permission', permissionSchema)
 module.exports = permission

@@ -7,7 +7,7 @@ const usersSchema = new Schema ({
         required: true
     },
     no_telp :{
-        type: Number,
+        type: String,
         required: true
     },
     email:{

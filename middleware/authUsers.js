@@ -1,4 +1,5 @@
 const Users = require ('../models/usersSchema');
+const Permissions = require('../models/permissionSchema');
 const crypto = require('crypto-js')
 
 const readToken = async(token) => {
@@ -40,12 +41,29 @@ const isUser = async (req, res, next)=> {
 
 const authorize = async(req, res, next) => {
     try{
-        console.log(req.headers.authorization)
+        if(!req.headers.authorization){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized",
+            })
+        }
+        
         const bearerToken = req.headers.authorization
         const token = bearerToken.split("Bearer ")[1];
         const tokenPayload = await readToken(token)
 
         const user = await Users.findById(tokenPayload.user_id);
+        const akses = await Permissions.findOne({id_role: tokenPayload.role_id})
+        const endpoint = req.originalUrl.split('/')[2]
+
+        const cekHak = akses.hak_akses.find(e => e == endpoint)
+        if(!cekHak){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized",
+            })
+        }
+
         req.user = user;
 
         next();
