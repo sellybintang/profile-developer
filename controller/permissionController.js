@@ -11,14 +11,33 @@ const readToken = async(token) => {
 
 const buatPremission = async (req, res)=>{
     try{
+        // Validasi untuk maksimal jumlah data
         const maksPremission = 3
         const existingCount = await permission.countDocuments();
-        console.log(existingCount)
-        if (existingCount>=maksPremission){
+        // console.log(existingCount)
+        if (existingCount >  maksPremission){
             res.status(401).json({
                 message: "Data tidak boleh melebihi batas maksimal"
             })
         }
+        
+        // Validasi untuk ketentuan angka role
+        const {id_role}=req.body
+        console.log()
+        if (id_role <1 || id_role >3 ){
+            return res.status(400).json({
+                message:'role tidak sesuai dengan ketentuan'
+            })
+        }
+
+        // Validasi untuk ketentuan role yag sudah ada
+        const jumlah_id_role= await permission.findOne({id_role:id_role})
+        console.log(jumlah_id_role)
+        if (jumlah_id_role){
+            return res.status(400).json({
+                message:'jumlah nilai role sudah tersedia'
+            })
+        }        
 
         const buatPremissionBaru = await permission.create(req.body)
         res.status(200).json({
@@ -71,7 +90,7 @@ const ubahPermission = async (req, res) =>{
 const hapusPermission = async  (req, res) =>{
     try{
         const id_permission = req.params;
-        console.log(id)
+        console.log(id_permission)
         const hapusPermissionBaru = await permission.findByIdAndDelete(id_permission.id)
         res.status(200).json({
             message: 'Data berhasil dihapus', hapusPermissionBaru
@@ -126,6 +145,8 @@ const authorizeEndpoint = async (req, res) => {
         })
     }
 }
+
+
 
 module.exports = {
     buatPremission,
