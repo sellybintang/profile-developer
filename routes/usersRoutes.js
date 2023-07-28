@@ -13,9 +13,9 @@ router.post('/login', login);
 router.get('/semuaAkunUser', authorize, ambilSemuaProfile);
 
 // Permissions
-router.post('/buatPermission', authorize, buatPremission);
+router.post('/buatPermission', authorize,buatPremission);
 router.get('/ambilPermission' , authorize, ambilPremission);
-router.patch('/ubahPermission/:id_permission' , authorize, ubahPermission);
+router.patch('/ubahPermission/:id_permission', authorize,ubahPermission);
 router.delete('/hapusPermission/:id_permission' , authorize, hapusPermission);
 
 router.post('/authorize', authorizeEndpoint)

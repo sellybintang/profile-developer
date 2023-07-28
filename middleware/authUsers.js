@@ -50,11 +50,20 @@ const authorize = async(req, res, next) => {
         
         const bearerToken = req.headers.authorization
         const token = bearerToken.split("Bearer ")[1];
+
         const tokenPayload = await readToken(token)
 
+        if(tokenPayload.exp && tokenPayload.exp < Math.floor(Date.now() / 1000)){
+            return res.status(401).json({
+                status: "Error",
+                message: "Token kadaluwarsa, silahkan login kembali."
+            })
+        }
+        
         const user = await Users.findById(tokenPayload.user_id);
         const akses = await Permissions.findOne({id_role: tokenPayload.role_id})
         const endpoint = req.originalUrl.split('/')[2]
+
 
         const cekHak = akses.hak_akses.find(e => e == endpoint)
         if(!cekHak){
@@ -68,9 +77,9 @@ const authorize = async(req, res, next) => {
 
         next();
     }catch(err){
-        res.status(401).json({
+        res.status(500).json({
             status: "Error",
-            message: "Unauthorized",
+            message: err.message,
         })
     }
 }

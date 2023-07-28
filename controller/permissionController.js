@@ -96,9 +96,17 @@ const authorizeEndpoint = async (req, res) => {
         const token = bearerToken.split("Bearer ")[1];
         const tokenPayload = await readToken(token)
 
+        
+        if(tokenPayload.exp && tokenPayload.exp < Math.floor(Date.now() / 1000)){
+            return res.status(401).json({
+                status: "Error",
+                message: "Token kadaluwarsa, silahkan login kembali."
+            })
+        }
+        
         const akses = await permission.findOne({id_role: tokenPayload.role_id})
         const endpoint = req.body.orgUrl.split('/')[2]
-
+        
         const cekHak = akses.hak_akses.find(e => e == endpoint)
         if(!cekHak){
             return res.status(401).json({

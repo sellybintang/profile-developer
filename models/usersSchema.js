@@ -50,7 +50,7 @@ const usersSchema = new Schema ({
         }
     },
     role:{
-        type: String,
+        type: Number,
         required: true
     },
     createdAd:{

@@ -8,12 +8,6 @@ const createToken = async(payload) => {
     return crypto.AES.encrypt(data, process.env.KEY).toString()
 }
 
-// const readToken = async(token) => {
-//     const bytes = crypto.AES.decrypt(token, process.env.KEY);
-//     const decryptedData = bytes.toString(crypto.enc.Utf8);
-//     return JSON.parse(decryptedData);
-// }
-
 const register = async(req, res)=>{
     
     try{
@@ -79,7 +73,8 @@ const login = async(req, res) => {
     
         const token = await createToken({
             user_id: user.id,
-            role_id: user.role
+            role_id: user.role,
+            exp: Math.floor(Date.now() / 1000) + 3600
         })
     
         res.status(200).json({
