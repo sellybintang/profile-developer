@@ -83,16 +83,41 @@ const hapusPermission = async  (req, res) =>{
     }
 }
 
+const authorizeEndpoint = async (req, res) => {
+    try{
+        const bearerToken = req.headers.authorization
+        if(!bearerToken){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized"
+            })
+        }
 
-module.exports = {
-    buatPremission,
-    ambilPremission,
-    ubahPermission,
-    hapusPermission,
+        const token = bearerToken.split("Bearer ")[1];
+        const tokenPayload = await readToken(token)
+
+        const akses = await permission.findOne({id_role: tokenPayload.role_id})
+        const endpoint = req.body.orgUrl.split('/')[2]
+
+        const cekHak = akses.hak_akses.find(e => e == endpoint)
+        if(!cekHak){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized"
+            })
+        }
+
+        res.status(200).json({
+            status: "Berhasil",
+            message: "Akses Diberikan"
+        })
+    }catch(err){
+        res.status(500).json({
+            status: "Error",
+            message: err.message
+        })
+    }
 }
-
-
-
 
 module.exports = {
     buatPremission,
