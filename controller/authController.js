@@ -20,14 +20,14 @@ const register = async(req, res)=>{
         const email = req.body.email
         const user= await Users.findOne({email:email})
         if (user){
-            res.status(400).json({
+            return res.status(400).json({
                 message: "Maaf email sudah terdaftar"
             })
         }
         
         const password = req.body.password
-        if(password.length<=8){
-            res.status(400).json({
+        if(password.length<8){
+            return res.status(400).json({
                 message:'minimal password 8 karakter'
             })
         }
@@ -36,7 +36,8 @@ const register = async(req, res)=>{
         req.body.password=hashedPassword
         const registerUsers = await Users.create(req.body)
         res.status(200).json({
-            message: "User telah berhasil terdaftar", data: registerUsers
+            message: "User telah berhasil terdaftar", 
+            data: registerUsers
         })
     }catch{
         res.status(402).json({
