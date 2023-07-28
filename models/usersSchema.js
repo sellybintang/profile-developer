@@ -16,6 +16,7 @@ const usersSchema = new Schema ({
     },
     password:{
         type: String,
+        minlength : 8,
         required: true
     },
     tempat_tanggal_lahir:{

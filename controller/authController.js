@@ -15,8 +15,22 @@ const createToken = async(payload) => {
 // }
 
 const register = async(req, res)=>{
+    
     try{
-        let password = req.body.password 
+        const email = req.body.email
+        const user= await Users.findOne({email:email})
+        if (user){
+            res.status(400).json({
+                message: "Maaf email sudah terdaftar"
+            })
+        }
+        
+        const password = req.body.password
+        if(password.length<=8){
+            res.status(400).json({
+                message:'minimal password 8 karakter'
+            })
+        }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         req.body.password=hashedPassword
@@ -25,11 +39,12 @@ const register = async(req, res)=>{
             message: "User telah berhasil terdaftar", data: registerUsers
         })
     }catch{
-        res.status(401).json({
+        res.status(402).json({
             message:"User gagal mendaftar"
         })
     }
 }
+
 
 const login = async(req, res) => {
     try{

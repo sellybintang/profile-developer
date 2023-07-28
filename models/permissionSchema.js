@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const permissionSchema = mongoose.Schema ({
     id_role :{
-        type: String,
+        type: Number,
         required: true
     },
     hak_akses: {
