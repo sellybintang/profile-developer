@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {register, login, ambilSemuaProfile} = require ('../controller/authController')
 const {isAdmin, superAdmin, isUser, authorize} = require ('../middleware/authUsers')
-const {buatPremission, ambilPremission, ubahPermission, hapusPermission} = require('../controller/permissionController')
+const {buatPremission, ambilPremission, ubahPermission, hapusPermission, authorizeEndpoint} = require('../controller/permissionController')
 // const {authPassword} = require ('../middleware/authPassword')
 
 
@@ -15,7 +15,9 @@ router.get('/semuaAkunUser', authorize, ambilSemuaProfile);
 // Permissions
 router.post('/buatPermission', authorize, buatPremission);
 router.get('/ambilPermission' , authorize, ambilPremission);
-router.patch('/ubahPermision' , authorize, ubahPermission);
-router.delete('/hapusPermission' , authorize, hapusPermission);
+router.patch('/ubahPermission/:id_permission' , authorize, ubahPermission);
+router.delete('/hapusPermission/:id_permission' , authorize, hapusPermission);
+
+router.post('/authorize', authorizeEndpoint)
 
 module.exports = router
