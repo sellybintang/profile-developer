@@ -80,7 +80,7 @@ const ambilDeveloperByAdmin = async (req, res) =>{
 // Search Data Properti Developer
 const cariDeveloper = async (req, res) =>{
     try {
-        const { name,properties } = req.body;
+        const { properties, name } = req.body;
         const bacaSemuaDeveloper = await Developer.find({properties:properties, name:name});
         res.status(200).json({
             message: 'semua data developer', bacaSemuaDeveloper
