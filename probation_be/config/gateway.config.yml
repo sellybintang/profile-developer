@@ -10,10 +10,12 @@ serviceEndpoints:
     url: 'https://httpbin.org'
 # Manajemen Wilayah
   manajemenWilayah:
-    url: 'https://5bb9-112-78-133-82.ngrok-free.app'
+    url: 'https://01f8-112-78-133-82.ngrok-free.app'
 # Developer
   Developer: 
     url: 'https://9329-112-78-133-82.ngrok-free.app'
+  user:
+    url: ''
 
 
 # API ENDPOINT
@@ -94,6 +96,35 @@ apiEndpoints:
     paths: '/developer/hapusDeveloper/:id'
   hapusPropertiDeveloper:
     paths: '/developer/hapusPropertiDeveloper/:id'
+  
+# User Service
+  # GET ENDPOINTS
+  semuaAkunUser:
+    paths: '/userService/semuaAkunUser'
+  ambilPermission:
+    paths: '/userService/ambilPermission'
+  
+  # POST ENDPOINTS
+  register:
+    paths: '/userService/register'
+  login:
+    paths: '/userService/login'
+  buatPermission:
+    paths: '/userService/buatPermission'
+  authorize:
+    paths: '/userService/authorize'
+
+  # PATCH ENDPOINTS
+  ubahProfile:
+    paths: '/userService/ubahProfile/:id'
+  ubahPermission:
+    paths: '/userService/ubahPermission/:id_permission'
+  
+  # DELETE ENDPOINTS
+  hapusProfile:
+    paths: '/userService/hapusProfile/:id'
+  hapusPermission:
+    paths: '/userService/hapusPermission/:id_permission'
 
 policies:
   - basic-auth
@@ -505,3 +536,138 @@ pipelines:
         - action:
             serviceEndpoint: Developer
             changeOrigin: true  
+  
+  # User Service
+  # GET PIPELINES
+  ambilSemuaAkunUser:
+    apiEndpoints:
+      - semuaAkunUser
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+
+  ambilPermission:
+    apiEndpoints:
+      - ambilPermission
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'GET'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+
+  # POST PIPELINES
+  register:
+    apiEndpoints:
+      - register
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  login:
+    apiEndpoints:
+      - login
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  buatPermission:
+    apiEndpoints:
+      - buatPermission
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  authorize:
+    apiEndpoints:
+      - authorize
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'POST'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  # PATCH PIPELINES
+  ubahProfile:
+    apiEndpoints:
+      - ubahProfile
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  ubahPermission:
+    apiEndpoints:
+      - ubahPermission
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'PATCH'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+
+  # DELETE PIPELINES
+  hapusProfile:
+    apiEndpoints:
+      - hapusProfile
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
+  
+  hapusPermission:
+    apiEndpoints:
+      - hapusPermission
+    policies:
+      - cors:
+          - action:
+              origin: '*'
+              methods: 'DELETE'
+      - proxy:
+          - action:
+              serviceEndpoint: user
+              changeOrigin: true
