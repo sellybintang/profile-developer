@@ -124,6 +124,14 @@ const authorizeEndpoint = async (req, res) => {
         }
         
         const akses = await permission.findOne({id_role: tokenPayload.role_id})
+
+        if(akses.id_role == 1){
+            return res.status(200).json({
+                status: "Berhasil",
+                message: "Akses Diberikan"
+            })
+        }
+
         const endpoint = req.body.orgUrl.split('/')[2]
         
         const cekHak = akses.hak_akses.find(e => e == endpoint)
