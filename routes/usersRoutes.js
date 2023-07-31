@@ -12,7 +12,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.get('/semuaAkunUser', authorize, ambilSemuaProfile);
 router.patch('/ubahProfile/:id', isLogin,ubahUsers);
-router.delete('/hapusProfile/:id',  hapusUsers);
+router.delete('/hapusProfile/:id', authorize,hapusUsers);
 
 
 // Permissions

@@ -105,6 +105,7 @@ const whoami = async(req, res) => {
 
 const ambilSemuaProfile = async (req, res) =>{
     try{
+        console.log(req.user)
         const ambilSemuaProfiles = await Users.find();
         res.status(200).json({
             message: 'Data Semua Users', ambilSemuaProfiles

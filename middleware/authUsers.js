@@ -96,6 +96,11 @@ const authorize = async(req, res, next) => {
         
         const user = await Users.findById(tokenPayload.user_id);
         const akses = await Permissions.findOne({id_role: tokenPayload.role_id})
+
+        if(user.role == 1){
+            return next();
+        }
+
         const endpoint = req.originalUrl.split('/')[2]
 
 
