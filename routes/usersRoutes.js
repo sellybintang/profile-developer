@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {register, login, ambilSemuaProfile, ubahUsers, hapusUsers} = require ('../controller/authController')
-const {isAdmin, superAdmin, isUser, authorize} = require ('../middleware/authUsers')
+const {isAdmin, superAdmin, isUser, isLogin,authorize} = require ('../middleware/authUsers')
 const {buatPremission, ambilPremission, ubahPermission, hapusPermission, authorizeEndpoint} = require('../controller/permissionController')
 // const {authPassword} = require ('../middleware/authPassword')
 
@@ -11,7 +11,7 @@ const {buatPremission, ambilPremission, ubahPermission, hapusPermission, authori
 router.post('/register', register);
 router.post('/login', login);
 router.get('/semuaAkunUser', authorize, ambilSemuaProfile);
-router.patch('/ubahProfile/:id',  ubahUsers);
+router.patch('/ubahProfile/:id', isLogin,ubahUsers);
 router.delete('/hapusProfile/:id',  hapusUsers);
 
 

@@ -39,6 +39,40 @@ const isUser = async (req, res, next)=> {
     }
 }
 
+const isLogin = async(req, res, next) => {
+    try{
+        if(!req.headers.authorization){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized",
+            })
+        }
+        
+        const bearerToken = req.headers.authorization
+        const token = bearerToken.split("Bearer ")[1];
+
+        const tokenPayload = await readToken(token)
+
+        if(tokenPayload.exp && tokenPayload.exp < Math.floor(Date.now() / 1000)){
+            return res.status(401).json({
+                status: "Error",
+                message: "Token kadaluwarsa, silahkan login kembali."
+            })
+        }
+        
+        const user = await Users.findById(tokenPayload.user_id);
+
+        req.user = user;
+
+        next();
+    }catch(err){
+        res.status(500).json({
+            status: "Error",
+            message: err.message,
+        })
+    }
+}
+
 const authorize = async(req, res, next) => {
     try{
         if(!req.headers.authorization){
@@ -88,5 +122,6 @@ module.exports = {
     superAdmin,
     isAdmin,
     isUser,
+    isLogin,
     authorize
 }

@@ -121,6 +121,13 @@ const ambilSemuaProfile = async (req, res) =>{
 const ubahUsers = async (req, res) =>{
     try{
         const id = req.params.id;
+        console.log(req.user.id)
+        if(id !== req.user.id){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized!"
+            })
+        }
         const {
             name,
             no_telp,
