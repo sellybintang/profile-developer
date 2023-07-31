@@ -116,10 +116,58 @@ const ambilSemuaProfile = async (req, res) =>{
     }
 }
 
+// Update Auth
+
+const ubahUsers = async (req, res) =>{
+    try{
+        const id = req.params.id;
+        const {
+            name,
+            no_telp,
+            tempat_tanggal_lahir,
+            password}=req.body
+        const ubahUsersBaru = await Users.findByIdAndUpdate(id, {name:name, no_telp:no_telp, tempat_tanggal_lahir:tempat_tanggal_lahir, password:password},{
+            new: true,
+            runValidators : true
+        })
+        res.status(200).json({
+            message: 'Profile berhasil dirubah', ubahUsersBaru
+        })
+    }catch {
+        res.status(401).json({
+            message: 'Maaf, Profile gagal di ubah'
+        })
+    }
+}
+
+
+const hapusUsers = async (req, res) =>{
+    try{
+        const id = req.params.id
+        const hapusUsersBaru = await Users.findByIdAndDelete(id)
+            res.status(200).json({
+                message: 'Data berhasil dihapus', hapusUsersBaru
+            })
+       
+    }catch{
+        res.status(401).json({
+            message: 'Maaf, data gagal dihapus'
+        })
+    }
+}
+            
+
+            
+
+
+
+
 module.exports = {
     register,
     login,
     whoami,
-    ambilSemuaProfile
+    ambilSemuaProfile,
+    ubahUsers,
+    hapusUsers
     
 }
