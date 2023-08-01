@@ -20,11 +20,13 @@ const buatDeveloper = async (req, res) =>{
         const buatbaruDeveloper = await Developer.create({admin_boss_id:admin_boss_id,admin_id:admin_id, logo:logo, boss_id:boss_id, name:name, properties:properties, alamat:alamat});
         // console.log (buatbaruDeveloper)
         res.status (200).json({
+            status: 'Berhasil',
             message: 'data developer berhasil ditambahkan', buatbaruDeveloper
         });
         console.log (buatbaruDeveloper)
     }catch (error){
         return res.status(error.statusCode ||500).json({
+            status: 'Error',
             message: error.message,
         });
     };
@@ -35,10 +37,12 @@ const ambilSemuaDeveloper = async (req, res) =>{
     try {
         const bacaDeveloperIdAdmin = await Developer.find();
         res.status(200).json({
+            status: 'Berhasil',
             message: 'semua data developer', bacaDeveloperIdAdmin
         });
     }catch (error){
         return res.status(error.statusCode ||500).json({
+            status: 'Error',
             message: error.message,
         });
     };
@@ -50,11 +54,13 @@ const ambilDeveloper = async (req, res)=>{
         const id = req.params.id;
         const bacaIdDeveloper = await Developer.findById(id);
         res.status(200).json({
+            status: 'Berhasil',
             message:'data developer', bacaIdDeveloper
         });
         
     }catch (error){
         res.status(error.statusCode || 500).json({
+            status: 'Error',
             message:error.message,
         });
     };
@@ -66,11 +72,13 @@ const ambilDeveloperByAdmin = async (req, res) =>{
         const admin_id = req.params.admin_id;
         const bacaSemuaDeveloper = await Developer.find({admin_id:admin_id})
         res.status(200).json({
+            status: 'Berhasil',
             message: 'semua data developer', bacaSemuaDeveloper
         });
 
     }catch (error){
         return res.status(error.statusCode ||500).json({
+            status: 'Error',
             message: error.message,
         });
     };
@@ -83,10 +91,12 @@ const cariDeveloper = async (req, res) =>{
         const { properties, name } = req.body;
         const bacaSemuaDeveloper = await Developer.find({name:name});
         res.status(200).json({
+            status: 'Berhasil',
             message: 'semua data developer', bacaSemuaDeveloper
         });
     }catch (error){
         return res.status(error.statusCode ||500).json({
+            status: 'Error',
             message: error.message,
         });
     };
@@ -104,10 +114,12 @@ const editDeveloper = async (req, res)=>{
         });
         // console.log(editIdDeveloper)
         res.status(200).json({
+            status: 'Berhasil',
             message:'data developer berhasil diubah', editIdDeveloper
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
+            status: 'Error',
             message:error.message,
         });
     };
@@ -123,10 +135,12 @@ const tambahPropertiDeveloper = async (req, res)=>{
         const id = req.params;
         const tambahkanPropertiDeveloper = await Developer.findByIdAndUpdate(id.id,{properties:properties},{new:true, runValidators: true,});
         res.status(200).json({
+            status: 'Berhasil',
             message:'data developer berhasil diubah',tambahkanPropertiDeveloper
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
+            status: 'Error',
             message:error.message,
         });
     };
@@ -145,6 +159,7 @@ const hapusPropertiDeveloper = async (req, res)=>{
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
+            status: 'Error',
             message:error.message,
         });
     };
@@ -161,6 +176,7 @@ const hapusDeveloper = async (req, res)=>{
         });
     }catch (error){
         return res.status(error.statusCode || 500).json({
+            status: 'Error',
             message:error.message,
         });
     };
