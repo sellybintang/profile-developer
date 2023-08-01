@@ -15,6 +15,7 @@ const register = async(req, res)=>{
         const user= await Users.findOne({email:email})
         if (user){
             return res.status(400).json({
+                status:'Gagal',
                 message: "Maaf email sudah terdaftar"
             })
         }
@@ -30,11 +31,13 @@ const register = async(req, res)=>{
         req.body.password=hashedPassword
         const registerUsers = await Users.create(req.body)
         res.status(200).json({
+            status: 'Berhasil',
             message: "User telah berhasil terdaftar", 
             data: registerUsers
         })
     }catch{
-        res.status(402).json({
+        res.status(500).json({
+            status: 'Gagal',
             message:"User gagal mendaftar"
         })
     }
@@ -108,10 +111,12 @@ const ambilSemuaProfile = async (req, res) =>{
         console.log(req.user)
         const ambilSemuaProfiles = await Users.find();
         res.status(200).json({
+            status: 'Error',
             message: 'Data Semua Users', ambilSemuaProfiles
         })
     }catch {
-        res.status(401).json({
+        res.status(500).json({
+            status: 'Error',
             message: 'Hanya bisa diakses oleh Super Admin dan Admin'
         })
     }
@@ -139,10 +144,12 @@ const ubahUsers = async (req, res) =>{
             runValidators : true
         })
         res.status(200).json({
+            status: 'Berhasil',
             message: 'Profile berhasil dirubah', ubahUsersBaru
         })
     }catch {
         res.status(401).json({
+            status: 'Error',
             message: 'Maaf, Profile gagal di ubah'
         })
     }
@@ -154,11 +161,13 @@ const hapusUsers = async (req, res) =>{
         const id = req.params.id
         const hapusUsersBaru = await Users.findByIdAndDelete(id)
             res.status(200).json({
+                status:'Berhasil',
                 message: 'Data berhasil dihapus', hapusUsersBaru
             })
        
     }catch{
-        res.status(401).json({
+        res.status(500).json({
+            status: 'Error',
             message: 'Maaf, data gagal dihapus'
         })
     }
