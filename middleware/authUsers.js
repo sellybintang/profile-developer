@@ -97,6 +97,20 @@ const authorize = async(req, res, next) => {
         const user = await Users.findById(tokenPayload.user_id);
         const akses = await Permissions.findOne({id_role: tokenPayload.role_id})
 
+        if(!user){
+            return res.status(404).json({
+                status: "Error",
+                message: "Data Akun Tidak Ditemukan"
+            })
+        }
+
+        if(!akses){
+            return res.status(404).json({
+                status: "Error",
+                message: "Data Role Tidak Ditemukan"
+            })
+        }
+
         if(user.role == 1){
             return next();
         }

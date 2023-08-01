@@ -87,7 +87,7 @@ const login = async(req, res) => {
                 nama: user.name,
                 no_telp: user.no_telp,
                 alamat: user.alamat,
-                token: "Bearer " + token
+                token: token
             }
         })
     }catch(err){
@@ -127,7 +127,6 @@ const ambilSemuaProfile = async (req, res) =>{
 const ubahUsers = async (req, res) =>{
     try{
         const id = req.params.id;
-        console.log(req.user.id)
         if(id !== req.user.id){
             return res.status(401).json({
                 status: "Error",
@@ -159,6 +158,12 @@ const ubahUsers = async (req, res) =>{
 const hapusUsers = async (req, res) =>{
     try{
         const id = req.params.id
+        if(id !== req.user.id){
+            return res.status(401).json({
+                status: "Error",
+                message: "Unauthorized!"
+            })
+        }
         const hapusUsersBaru = await Users.findByIdAndDelete(id)
             res.status(200).json({
                 status:'Berhasil',
@@ -172,12 +177,6 @@ const hapusUsers = async (req, res) =>{
         })
     }
 }
-            
-
-            
-
-
-
 
 module.exports = {
     register,
