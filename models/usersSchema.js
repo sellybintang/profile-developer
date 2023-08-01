@@ -45,7 +45,7 @@ const usersSchema = new Schema ({
             required: true
         },
         kode_pos:{
-            type: String,
+            type: Number,
             required: true
         }
     },
