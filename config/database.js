@@ -8,7 +8,7 @@ const database = module.exports = () => {
         mongoose.connect(DB_MONGODB);
         console.log("Connected to Mongodb");
     } catch (error){
-        console.log(erro);
+        console.log(error);
         console.log("failed");
     }
 };
